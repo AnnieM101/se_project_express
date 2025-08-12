@@ -2,7 +2,6 @@ const ClothingItem = require("../models/clothingItem");
 const errorHandling = require("../utils/errors");
 const getClothingItems = (req, res) => {
   ClothingItem.find({})
-    .orFail()
     .then((item) => {
       console.log(item);
       res.status(200).send(item);
@@ -36,7 +35,7 @@ const likeItem = (req, res) =>
     { new: true }
   )
     .orFail()
-    .then((item) => res.status(200).send({}))
+    .then((item) => res.status(200).send(item))
     .catch((err) => errorHandling(res, req, err));
 
 const dislikeItem = (req, res) =>
@@ -46,7 +45,7 @@ const dislikeItem = (req, res) =>
     { new: true }
   )
     .orFail()
-    .then((item) => res.status(200).send({}))
+    .then((item) => res.status(200).send(item))
     .catch((err) => errorHandling(res, req, err));
 
 module.exports = {

@@ -1,5 +1,5 @@
 const errorHandling = (res, req, err) => {
-  console.error(err);
+  console.warn(err);
   if (err.name === "CastError") {
     return res.status(400).send({ message: err.message });
   }
