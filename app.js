@@ -17,13 +17,12 @@ mongoose
 
 app.use((req, res, next) => {
   req.user = {
-    _id: "689964afa258d6af211bafa4", 
+    _id: "689964afa258d6af211bafa4",
   };
   next();
 });
 
 app.use("/", indexRouter);
-app.use("/items", clothingRouter);
 app.use((req, res) => {
   res.status(404).json({ message: "Requested resource not found" });
 });
