@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 const errorHandling = require("../utils/errors");
 
 const getUsers = (req, res) => {
@@ -14,7 +15,11 @@ const getUser = (req, res) => {
 };
 const createUser = (req, res) => {
   const { name, avatar } = req.body;
-  User.create({ name, avatar })
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) =>
+      User.create({ name, avatar, email: req.body.email, password: hash })
+    )
     .then((user) => res.status(201).send(user))
     .catch((err) => errorHandling(res, req, err));
 };
