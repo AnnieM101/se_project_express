@@ -24,4 +24,5 @@ const createUser = (req, res) => {
     .catch((err) => errorHandling(res, req, err));
 };
 
+
 module.exports = { getUsers, getUser, createUser };
