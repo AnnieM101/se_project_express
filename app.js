@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const indexRouter = require("./routes/index");
 const clothingRouter = require("./routes/clothingItems");
+const cors = require('cors');
 
 const { PORT = 3001 } = process.env;
 const app = express();
@@ -21,6 +22,8 @@ app.use((req, res) => {
 });
 //app.post('/signin', login);
 //app.post('/signup', createUser);
+
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
