@@ -15,17 +15,12 @@ mongoose
   })
   .catch(console.warn);
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: "689964afa258d6af211bafa4",
-  };
-  next();
-});
-
 app.use("/", indexRouter);
 app.use((req, res) => {
   res.status(404).json({ message: "Requested resource not found" });
 });
+//app.post('/signin', login);
+//app.post('/signup', createUser);
 
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
