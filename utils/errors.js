@@ -11,7 +11,7 @@ const ERROR_MESSAGE = {
   BAD_REQUEST: "Invalid request data",
   DUPLICATE_EMAIL: "Email already in use",
 };
-const errorHandling = (res, req, err) => {
+const errorHandling = (err, req, res) => {
   console.warn(err);
   if (err.name === "CastError") {
     return res
@@ -21,7 +21,7 @@ const errorHandling = (res, req, err) => {
   if (err.name === "ValidationError") {
     return res
       .status(STATUS_CODE.BAD_REQUEST)
-      .send({ message: ERROR_MESSAGE.BAD_REQUEST })
+      .send({ message: ERROR_MESSAGE.BAD_REQUEST });
   }
    if (err.code === 11000) {
       return res
@@ -31,7 +31,7 @@ const errorHandling = (res, req, err) => {
   if (err.name === "DocumentNotFoundError") {
     return res
       .status(STATUS_CODE.NOT_FOUND)
-      .send({ message: ERROR_MESSAGE.NOT_FOUND })
+      .send({ message: ERROR_MESSAGE.NOT_FOUND });
   } else {
     return res
       .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
