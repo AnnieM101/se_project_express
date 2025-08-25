@@ -5,7 +5,7 @@ const getClothingItems = (req, res) => {
     .then((item) => {
       res.send(item);
     })
-    .catch((err) => errorHandling(res, req, err));
+    .catch((err) => errorHandling(err, req, res));
 };
 const createClothingItem = (req, res) => {
   const { name, weather, imageUrl } = req.body;
@@ -13,7 +13,7 @@ const createClothingItem = (req, res) => {
     .then((item) => {
       res.status(201).send({ data: item });
     })
-    .catch((err) => errorHandling(res, req, err));
+    .catch((err) => errorHandling(err, req, res));
 };
 const deleteClothingItem = (req, res) => {
   const { itemId } = req.params;
@@ -29,7 +29,7 @@ const deleteClothingItem = (req, res) => {
         res.status(200).send({ message: "Item deleted successfully" });
       });
     })
-    .catch((err) => errorHandling(res, req, err));
+    .catch((err) => errorHandling(err, req, res));
 };
 
 const likeItem = (req, res) =>
@@ -40,7 +40,7 @@ const likeItem = (req, res) =>
   )
     .orFail()
     .then((item) => res.status(200).send(item))
-    .catch((err) => errorHandling(res, req, err));
+    .catch((err) => errorHandling(err, req, res));
 
 const dislikeItem = (req, res) =>
   ClothingItem.findByIdAndUpdate(
@@ -50,7 +50,7 @@ const dislikeItem = (req, res) =>
   )
     .orFail()
     .then((item) => res.status(200).send(item))
-    .catch((err) => errorHandling(res, req, err));
+    .catch((err) => errorHandling(err, req, res));
 
 module.exports = {
   getClothingItems,
