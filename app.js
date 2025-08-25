@@ -18,13 +18,6 @@ mongoose
   .catch(console.warn);
 
 app.use("/", indexRouter);
-app.use((req, res) => {
-  res.status(404).json({ message: "Requested resource not found" });
-});
-//app.post('/signin', login);
-//app.post('/signup', createUser);
-
-app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
