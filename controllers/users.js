@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const errorHandling = require("../utils/errors");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../utils/config");
+const user = require("../models/user");
 
 const getUsers = (req, res) => {
   User.find({})
@@ -12,7 +13,7 @@ const getUsers = (req, res) => {
 const getCurrentUser = (req, res) => {
   User.findById(req.user._id)
     .orFail()
-    .then((users) => res.status(200).send(users))
+    .then((user) => res.status(200).send(user))
     .catch((err) => errorHandling(err, req, res));
 };
 const createUser = (req, res) => {
@@ -39,4 +40,16 @@ const login = (req, res) => {
     .catch((err) => errorHandling(err, req, res));
 };
 
-module.exports = { getUsers, getCurrentUser, createUser, login };
+const updateUser = (req, res) => {
+  const { name, avatar } = req.body;
+  User.findByIdAndUpdate(
+    req.user._id,
+    { name, avatar },
+    { runValidators: true, new: true }
+  )
+    .orFail()
+    .then((user) => res.status(200).send(user))
+    .catch((err) => errorHandling(err, req, res));
+};
+
+module.exports = { getUsers, getCurrentUser, createUser, login, updateUser };
